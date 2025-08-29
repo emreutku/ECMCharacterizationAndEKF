@@ -95,8 +95,12 @@ R = 1e-5
 
 # Run EKF
 for k in range(len(time)-1):
+    # Do not trust ECM model at high voltage region
     if (MEAS_NOISE_VAR == True) and voltage[k] > 3.9:
         R = 1
+    else
+        R = 1e-5
+        
 
     dt = time[k+1] - time[k]
     if dt <= 0: 
@@ -194,3 +198,4 @@ ax[3].set_ylim([0,20])
 
 plt.tight_layout()
 plt.show()
+
